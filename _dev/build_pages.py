@@ -1,6 +1,19 @@
 # -*- coding: utf-8 -*-
 """Assembles the NaRu site pages from one shared shell."""
 
+import hashlib as _hl
+
+def _asset_hash():
+    """Short content hash of the shared assets. Appended to their URLs so a
+    push always busts the browser cache — otherwise returning visitors keep
+    the old CSS/JS and never see the change."""
+    h = _hl.sha256()
+    for f in ("assets/site.css", "assets/butterfly.js"):
+        h.update(open("../" + f, "rb").read())
+    return h.hexdigest()[:10]
+
+ASSET_HASH = _asset_hash()
+
 HEAD = """<!doctype html>
 <html lang="en">
 <head>
@@ -11,7 +24,7 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v={assethash}">
 </head>
 <body{bodyclass}>
 {canvas}
@@ -99,7 +112,7 @@ FOOT = """</main>
   </div>
 </footer>
 
-<script src="assets/butterfly.js"></script>
+<script src="assets/butterfly.js?v={assethash}"></script>
 </body>
 </html>
 """
@@ -129,7 +142,7 @@ RIBBON = """  <div class="ribbon">
 def page(fname, title, desc, body, live=False):
     """live=True gives the page the animated wireframe background."""
     html = HEAD.format(
-        title=title, desc=desc,
+        title=title, desc=desc, assethash=ASSET_HASH,
         bodyclass=' class="bg-live"' if live else '',
         canvas='\n<canvas id="bgfx" aria-hidden="true"></canvas>\n' if live else '',
         ribbon=RIBBON if live else '',
