@@ -48,5 +48,3 @@ self-contained file for sharing.
 - Wire the two forms to an email provider — they validate and confirm in the
   browser but do not send anywhere yet.
 - Confirm the phone, email and copyright details before wider release.
-
-<!-- autopush verification -->
