@@ -123,18 +123,41 @@
     }
   })();
 
+  /* ---------- pre-rendered sprites ----------
+     Radial gradients are expensive and were previously rebuilt for every
+     glowing node on every frame. Bake them once and blit instead. */
+  function makeSprite(px, rgb) {
+    var c = document.createElement('canvas');
+    c.width = c.height = px;
+    var g = c.getContext('2d');
+    var rg = g.createRadialGradient(px / 2, px / 2, 0, px / 2, px / 2, px / 2);
+    rg.addColorStop(0, 'rgba(' + rgb + ',1)');
+    rg.addColorStop(0.5, 'rgba(' + rgb + ',0.28)');
+    rg.addColorStop(1, 'rgba(' + rgb + ',0)');
+    g.fillStyle = rg; g.fillRect(0, 0, px, px);
+    return c;
+  }
+  var SPR_BLOOM_COOL = makeSprite(192, '139,110,155');
+  var SPR_BLOOM_WARM = makeSprite(192, '201,123,90');
+  var SPR_NODE       = makeSprite(48,  '237,231,242');
+
   /* Resolve every node for a given morph position. */
   var PTS = new Float32Array(NODES.length * 2);
+  var MAXR = 0;
   function solve(stageF, size, flap) {
     var i = Math.min(SHAPES.length - 2, Math.floor(stageF));
     var k = smoothstep(clamp(stageF - i, 0, 1));
     var A = SHAPES[i], B = SHAPES[i + 1];
+    var m = 0;
     for (var n = 0; n < NODES.length; n++) {
       var nd = NODES[n];
       var R = lerp(A(nd.a), B(nd.a), k) * nd.rho * size;
-      PTS[n * 2]     = Math.sin(nd.a) * R * flap;
-      PTS[n * 2 + 1] = -Math.cos(nd.a) * R;
+      var px = Math.sin(nd.a) * R * flap, py = -Math.cos(nd.a) * R;
+      PTS[n * 2] = px; PTS[n * 2 + 1] = py;
+      var d2 = px * px + py * py;          /* squared — no sqrt in the loop */
+      if (d2 > m) m = d2;
     }
+    MAXR = Math.sqrt(m);
   }
 
   /* =========================================================
@@ -178,8 +201,8 @@
   function pathAt(p) {
     if (narrow()) {
       return {
-        x: W * (0.84 + 0.08 * Math.sin(p * Math.PI * 2.6)),
-        y: H * (0.86 - 0.06 * p + 0.07 * Math.cos(p * Math.PI * 2.2))
+        x: W * (0.62 + 0.14 * Math.sin(p * Math.PI * 2.6)),
+        y: H * (0.60 - 0.10 * p + 0.10 * Math.cos(p * Math.PI * 2.2))
       };
     }
     return {
@@ -200,50 +223,53 @@
 
   function drawMotes(p) {
     ctx.globalCompositeOperation = 'lighter';
-    for (var i = 0; i < motes.length; i++) {
-      var m = motes[i];
-      var y = m.y - (t * m.sp * 12) % (H + 80);
-      if (y < -40) y += H + 80;
-      var x = m.x + Math.sin(t * 0.4 + m.ph) * m.am;
-      var a = (0.06 + 0.10 * p) * (0.5 + 0.5 * Math.sin(t * 0.9 + m.ph));
-      ctx.beginPath(); ctx.arc(x, y, m.r, 0, Math.PI * 2);
-      ctx.fillStyle = rgba(C_LILAC, a); ctx.fill();
+    var base = 0.06 + 0.10 * p;
+    /* three alpha buckets, one path each — not one fill per mote */
+    for (var b = 0; b < 3; b++) {
+      ctx.fillStyle = rgba(C_LILAC, base * (0.35 + b * 0.32));
+      ctx.beginPath();
+      for (var i = b; i < motes.length; i += 3) {
+        var m = motes[i];
+        var y = m.y - (t * m.sp * 12) % (H + 80);
+        if (y < -40) y += H + 80;
+        var x = m.x + Math.sin(t * 0.4 + m.ph) * m.am;
+        ctx.moveTo(x + m.r, y);
+        ctx.arc(x, y, m.r, 0, 6.2832);
+      }
+      ctx.fill();
     }
   }
 
   function drawMesh(cx, cy, rot, warm, energy, alpha) {
     var edgeCol = mix(C_MAUVE, C_CLAY, warm);
-    var nodeCol = mix(C_LILAC, C_GLOW, 0.45);
+    var maxR = MAXR;
 
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(rot);
     ctx.globalCompositeOperation = 'lighter';
 
-    /* bloom behind the mesh */
-    var maxR = 0;
-    for (var n0 = 0; n0 < NODES.length; n0++) {
-      var d = Math.hypot(PTS[n0 * 2], PTS[n0 * 2 + 1]);
-      if (d > maxR) maxR = d;
+    /* bloom: two baked sprites cross-faded by warmth */
+    var R = maxR * 1.9, D = R * 2;
+    ctx.globalAlpha = 0.30 * alpha * (1 - warm);
+    ctx.drawImage(SPR_BLOOM_COOL, -R, -R, D, D);
+    if (warm > 0.01) {
+      ctx.globalAlpha = 0.30 * alpha * warm;
+      ctx.drawImage(SPR_BLOOM_WARM, -R, -R, D, D);
     }
-    var bg = ctx.createRadialGradient(0, 0, 0, 0, 0, maxR * 1.9);
-    bg.addColorStop(0, rgba(mix(C_MAUVE, C_CLAY, warm), 0.20 * alpha));
-    bg.addColorStop(0.45, rgba(C_MAUVE, 0.07 * alpha));
-    bg.addColorStop(1, rgba(C_MAUVE, 0));
-    ctx.fillStyle = bg;
-    ctx.beginPath(); ctx.arc(0, 0, maxR * 1.9, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
 
-    /* the energy beam that flares during a transition */
+    /* the energy beam that flares during a transition (one gradient/frame) */
     if (energy > 0.02) {
       var lg = ctx.createLinearGradient(-maxR * 3.2, 0, maxR * 3.2, 0);
-      lg.addColorStop(0, rgba(C_LILAC, 0));
-      lg.addColorStop(0.5, rgba(C_GLOW, 0.16 * energy * alpha));
-      lg.addColorStop(1, rgba(C_LILAC, 0));
+      lg.addColorStop(0, 'rgba(201,184,217,0)');
+      lg.addColorStop(0.5, 'rgba(237,231,242,' + (0.16 * energy * alpha) + ')');
+      lg.addColorStop(1, 'rgba(201,184,217,0)');
       ctx.fillStyle = lg;
       ctx.fillRect(-maxR * 3.2, -maxR * 0.05, maxR * 6.4, maxR * 0.10);
     }
 
-    /* edges */
+    /* edges — one path, one stroke */
     ctx.lineWidth = 1;
     ctx.strokeStyle = rgba(edgeCol, 0.30 * alpha);
     ctx.beginPath();
@@ -254,35 +280,35 @@
     }
     ctx.stroke();
 
-    /* brighter rim on the outer ring */
+    /* brighter outer rim */
     ctx.strokeStyle = rgba(C_LILAC, 0.42 * alpha);
     ctx.lineWidth = 1.3;
     ctx.beginPath();
     var n1 = RINGS[0].n;
-    for (var k = 0; k < n1; k++) {
-      var a1 = k, b1 = (k + 1) % n1;
-      if (k === 0) ctx.moveTo(PTS[a1 * 2], PTS[a1 * 2 + 1]);
+    ctx.moveTo(PTS[0], PTS[1]);
+    for (var k = 1; k <= n1; k++) {
+      var b1 = k % n1;
       ctx.lineTo(PTS[b1 * 2], PTS[b1 * 2 + 1]);
     }
     ctx.stroke();
 
-    /* nodes */
+    /* nodes: small dots batched into one path, glows blitted */
+    ctx.fillStyle = rgba(C_LILAC, 0.62 * alpha);
+    ctx.beginPath();
     for (var n2 = 0; n2 < NODES.length; n2++) {
-      var px = PTS[n2 * 2], py = PTS[n2 * 2 + 1];
-      var big = n2 % 6 === 0;
-      var tw = 0.55 + 0.45 * Math.sin(t * 1.8 + n2 * 0.7);
-      if (big) {
-        var g = ctx.createRadialGradient(px, py, 0, px, py, 9);
-        g.addColorStop(0, rgba(C_GLOW, 0.55 * alpha * tw));
-        g.addColorStop(1, rgba(C_LILAC, 0));
-        ctx.fillStyle = g;
-        ctx.beginPath(); ctx.arc(px, py, 9, 0, Math.PI * 2); ctx.fill();
-      }
-      ctx.beginPath();
-      ctx.arc(px, py, big ? 1.9 : 1.15, 0, Math.PI * 2);
-      ctx.fillStyle = rgba(nodeCol, (big ? 0.95 : 0.6) * alpha * (0.7 + 0.3 * tw));
-      ctx.fill();
+      var x2 = PTS[n2 * 2], y2 = PTS[n2 * 2 + 1];
+      ctx.moveTo(x2 + 1.15, y2);
+      ctx.arc(x2, y2, 1.15, 0, 6.2832);
     }
+    ctx.fill();
+
+    for (var n3 = 0; n3 < NODES.length; n3 += 6) {
+      var x3 = PTS[n3 * 2], y3 = PTS[n3 * 2 + 1];
+      var tw = 0.55 + 0.45 * Math.sin(t * 1.8 + n3 * 0.7);
+      ctx.globalAlpha = 0.55 * alpha * tw;
+      ctx.drawImage(SPR_NODE, x3 - 9, y3 - 9, 18, 18);
+    }
+    ctx.globalAlpha = 1;
     ctx.restore();
   }
 
@@ -344,8 +370,8 @@
     var flap = lerp(1, lerp(0.46, 1, beat), done);
 
     var base = Math.min(W, H);
-    var size = base * (0.16 + 0.10 * done) * (narrow() ? 0.66 : 1);
-    var vis = narrow() ? 0.40 : 1;   // a corner accent, not a backdrop, on small screens
+    var size = base * (0.16 + 0.10 * done) * (narrow() ? 0.92 : 1);
+    var vis = narrow() ? 0.85 : 1;   // the wireframe is the point of this page
 
     var pos = pathAt(p);
     var bob = Math.sin(t * 1.1) * (5 + 9 * done);
@@ -355,6 +381,7 @@
 
     solve(stageF, size, flap);
 
+    ribbon();
     drawMotes(p);
     drawMesh(cx, cy, rot, warm, energy, vis);
     drawAntennae(cx, cy, rot, size, done, vis);
@@ -382,20 +409,23 @@
   /* ---------- stage ribbon ---------- */
   var fill = document.querySelector('.ribbon .fill');
   var label = document.querySelector('.ribbon .stage');
+  var lastPct = -1, lastName = '';
+  /* Called from inside the animation frame, never from the scroll event —
+     writing layout on every scroll tick is what makes iOS scrolling stutter. */
   function ribbon() {
     var p = target;
-    if (fill) fill.style.width = (p * 100).toFixed(1) + '%';
+    var pct = Math.round(p * 100);
+    if (fill && pct !== lastPct) { fill.style.width = pct + '%'; lastPct = pct; }
     if (label) {
       var sF = clamp(p / 0.85 * 3, 0, 3);
-      label.textContent = sF < 0.85 ? 'Larva'
-                        : sF < 1.85 ? 'Chrysalis'
-                        : sF < 2.75 ? 'Emerging'
-                        : 'Butterfly';
+      var name = sF < 0.85 ? 'Larva' : sF < 1.85 ? 'Chrysalis'
+               : sF < 2.75 ? 'Emerging' : 'Butterfly';
+      if (name !== lastName) { label.textContent = name; lastName = name; }
     }
   }
 
   addEventListener('resize', resize, { passive: true });
-  addEventListener('scroll', function () { readScroll(); ribbon(); }, { passive: true });
+  addEventListener('scroll', readScroll, { passive: true });   // no DOM writes here
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) running = false;
     else if (!running) { running = true; t0 = performance.now() - t * 1000; requestAnimationFrame(frame); }
