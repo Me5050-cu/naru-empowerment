@@ -349,7 +349,10 @@
 
     t = (now - t0) / 1000;
 
-    smooth += (target - smooth) * (reduce ? 1 : 0.045);
+    /* Follow factor: how hard the mesh chases the scroll position. Higher
+       is more responsive. Touch screens get a tighter follow because the
+       drift that reads as elegant on a trackpad reads as lag on a phone. */
+    smooth += (target - smooth) * (reduce ? 1 : (narrow() ? 0.16 : 0.09));
     var p = smooth;
 
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
