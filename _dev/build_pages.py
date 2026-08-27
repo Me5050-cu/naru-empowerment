@@ -146,7 +146,7 @@ def page(fname, title, desc, body, live=False):
         bodyclass=' class="bg-live"' if live else '',
         canvas='\n<canvas id="bgfx" aria-hidden="true"></canvas>\n' if live else '',
         ribbon=RIBBON if live else '',
-    ) + body + FOOT
+    ) + body + FOOT.replace('{assethash}', ASSET_HASH)
     with open("../" + fname, "w") as f:
         f.write(html)
     print("%-24s %6d bytes" % (fname, len(html)))
