@@ -1,0 +1,133 @@
+/* ===========================================================
+   NaRu — light edition
+   Loads after site.css and inverts the ground. Structure,
+   type and spacing are untouched; only surfaces, lines and
+   the handful of rules that hardcode white are redefined.
+   =========================================================== */
+:root{
+  --bg:#F7F5F3;
+  --surface:rgba(255,255,255,.78);
+  --surface-solid:#FFFFFF;
+  --surface-2:#F1ECE8;
+  --line:rgba(22,20,26,.11);
+  --line-strong:rgba(22,20,26,.22);
+
+  --text:#16141A;
+  --text-2:rgba(22,20,26,.62);
+  --text-3:rgba(22,20,26,.40);
+
+  --lilac:#7A5E8C;          /* accent needs weight on a light ground */
+  --lilac-soft:rgba(139,110,155,.12);
+  --mauve:#8B6E9B;
+  --mauve-deep:#5E4770;
+  --clay:#B4623C;
+  --clay-soft:rgba(180,98,60,.12);
+
+  --shadow:0 18px 46px -22px rgba(22,20,26,.28);
+}
+
+body{background:var(--bg);color:var(--text)}
+
+/* panels: white sheets with a hairline, not translucent darkness */
+.veil{background:var(--surface-solid)}
+.veil-2{background:var(--surface-2)}
+.bg-live .veil,.bg-live .veil-2{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+
+header{background:rgba(247,245,243,.86)}
+header.scrolled{background:rgba(247,245,243,.95)}
+.ribbon{background:rgba(247,245,243,.6)}
+.navtoggle span{background:var(--text)}
+
+/* buttons invert: dark pill on light ground */
+.btn-ink{background:var(--text);color:#F7F5F3}
+.btn-ink:hover{background:var(--mauve-deep);color:#fff;box-shadow:0 18px 44px -20px rgba(94,71,112,.5)}
+.btn-clay{background:var(--clay);color:#fff}
+.btn-clay:hover{background:#9C5231;color:#fff}
+.btn-ghost{border-color:var(--line-strong);color:var(--text)}
+.btn-ghost:hover{background:var(--text);color:#F7F5F3;border-color:var(--text)}
+.btn-light{background:var(--text);color:#F7F5F3}
+.btn-light:hover{background:#000;color:#fff}
+.hero .btn-ink,.phero .btn-ink,.veil-open .btn-ink{background:var(--text);color:#F7F5F3}
+.hero .btn-ink:hover,.phero .btn-ink:hover,.veil-open .btn-ink:hover{background:var(--mauve-deep);color:#fff}
+.hero .btn-ghost,.phero .btn-ghost,.veil-open .btn-ghost{border-color:var(--line-strong);color:var(--text)}
+.hero .btn-ghost:hover,.phero .btn-ghost:hover,.veil-open .btn-ghost:hover{background:var(--text);color:#F7F5F3;border-color:var(--text)}
+
+/* cards lift with shadow rather than a lighter fill */
+.card,.pagecard,.cred{background:var(--surface-solid);border-color:var(--line)}
+.card:hover,.pagecard:hover,.cred:hover{background:var(--surface-solid);border-color:var(--mauve);box-shadow:var(--shadow)}
+.bg-live .pagecard{background:var(--surface-solid)}
+.bg-live .pagecard:hover{background:var(--surface-solid)}
+.card .icon svg{stroke:#fff}
+.i-ink{background:linear-gradient(150deg,#3A3340,#16141A);border-color:transparent}
+
+.field{background:var(--surface-solid);border-color:var(--line-strong);color:var(--text)}
+.field:focus{border-color:var(--mauve);background:#fff;box-shadow:0 0 0 4px rgba(139,110,155,.14)}
+.field::placeholder{color:var(--text-3)}
+select.field option{background:#fff;color:var(--text)}
+
+/* the two bands that carried the dark ground now carry colour instead */
+.quote{background:linear-gradient(100deg,#2C2433,#3E3348 60%,#4A3A55)}
+.quote .l1{color:#F4F1F6}
+.quote .l2{color:#CFBEDE}
+.cta{background:linear-gradient(100deg,rgba(139,110,155,.16),rgba(180,98,60,.18));
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cta::before{display:none}
+.cta h2,.cta p,.cta small{color:var(--text)}
+.cta p,.cta small{color:var(--text-2)}
+
+/* the dark accent card stays dark — it is the one deliberate contrast */
+.darkcard{background:linear-gradient(155deg,#3A3046,#1E1A24);border-color:transparent}
+.darkcard h3{color:#F4F1F6}
+.darkcard p,.darkcard li{color:rgba(244,241,246,.76)}
+.darkcard .ring{background:rgba(207,190,222,.16);color:#CFBEDE}
+.darkcard li svg{color:#CFBEDE}
+.darkcard a:hover{color:#CFBEDE}
+
+/* heroes sit on the page ground, so their type is dark */
+.hero h1,.phero h1{color:var(--text)}
+.hero h1 .mv,.phero h1 .mv{color:var(--mauve-deep)}
+.hero h1 em{color:var(--text-3)}
+.hero .kick{color:var(--mauve-deep)}
+.hero p.lead{color:var(--text-2)}
+.hero p.lead b{color:var(--text)}
+.hero-actions .quiet,.scroll-hint,.crumb{color:var(--text-3)}
+.phero p.sub{color:var(--text-2)}
+.divider::after{background:var(--line-strong)}
+.scroll-hint i{background:linear-gradient(var(--mauve),transparent)}
+.veil-open h2.sec,.veil-open h3{color:var(--text)}
+.veil-open h2.sec .mv{color:var(--mauve-deep)}
+.veil-open p{color:var(--text-2)}
+
+/* on light, the legibility halo must be light too */
+.bg-live main h1,.bg-live main h2,.bg-live main h3,.bg-live main h4,
+.bg-live main p,.bg-live main li,.bg-live main span,.bg-live main small,
+.bg-live footer a,.bg-live footer p,.bg-live footer h4,.bg-live .legal{
+  text-shadow:0 1px 3px rgba(247,245,243,.95),0 2px 20px rgba(247,245,243,.9),0 0 44px rgba(247,245,243,.7);
+}
+.bg-live .tag-pill{background:rgba(255,255,255,.7)}
+
+/* footer becomes the one dark anchor at the foot of the page */
+footer{background:#1B1721;color:rgba(244,241,246,.72);border-top:0}
+.bg-live footer{background:#1B1721}
+.foot .logo .name{color:#F4F1F6}
+.foot .logo .name b,.foot .logo .mark{color:#CFBEDE}
+.foot .logo .sub,.foot h4,.legal{color:rgba(244,241,246,.5)}
+.foot a,.contact-row{color:rgba(244,241,246,.74)}
+.foot a:hover,.contact-row:hover,.legal a:hover{color:#CFBEDE}
+.tagline{color:#F4F1F6}
+.tagline em{color:#CFBEDE}
+.social a{border-color:rgba(255,255,255,.16);color:rgba(244,241,246,.74)}
+.social a:hover{background:var(--mauve);border-color:var(--mauve);color:#fff}
+.legal{border-top-color:rgba(255,255,255,.14)}
+
+.faq summary::after{color:var(--mauve-deep)}
+.stagerow .beat,.card .num,.pagecard span,.eyebrow,.phero .eyebrow{color:var(--mauve-deep)}
+.formnote{color:var(--mauve-deep)}
+.ribbon .stage{color:var(--mauve-deep)}
+.ribbon .track{background:var(--line-strong)}
+.portrait{background:radial-gradient(80% 70% at 40% 25%,rgba(139,110,155,.35),transparent 62%),linear-gradient(158deg,#4A4152,#241F2B)}
+.d3{background:linear-gradient(150deg,#4A4056,#1E1A24)}
+
+@media(max-width:900px){
+  header,header.scrolled{background:#F7F5F3}
+}

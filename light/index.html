@@ -1,33 +1,18 @@
-# -*- coding: utf-8 -*-
-"""Assembles the NaRu site pages from one shared shell."""
-
-import hashlib as _hl
-
-def _asset_hash():
-    """Short content hash of the shared assets. Appended to their URLs so a
-    push always busts the browser cache — otherwise returning visitors keep
-    the old CSS/JS and never see the change."""
-    h = _hl.sha256()
-    for f in ("assets/site.css", "assets/butterfly.js", "assets/light.css"):
-        h.update(open("../" + f, "rb").read())
-    return h.hexdigest()[:10]
-
-ASSET_HASH = _asset_hash()
-
-HEAD = """<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title}</title>
-<meta name="description" content="{desc}">
+<title>NaRu Empowerment Life Coach Group — Small Shifts. Big Transformation.</title>
+<meta name="description" content="Transformational coaching for greater clarity, confidence, alignment, and professional action.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{ap}assets/site.css?v={assethash}">{extracss}
+<link rel="stylesheet" href="../assets/site.css?v=37755a1fa7">
+<link rel="stylesheet" href="../assets/light.css?v=37755a1fa7">
 </head>
-<body{bodyclass}>
-{canvas}
+<body class="theme-light">
+
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="bfly-mark" viewBox="0 0 120 100">
@@ -60,12 +45,92 @@ HEAD = """<!doctype html>
     </nav>
     <button class="navtoggle" id="navtoggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
-{ribbon}</header>
+</header>
 
 <main>
-"""
 
-FOOT = """</main>
+<section class="hero">
+  <div class="hero-in">
+    <div class="hero-copy rv">
+      <p class="kick">Small shifts. Big transformation.</p>
+      <h1>Your next chapter<span class="mv">begins with one</span><em>small shift.</em></h1>
+      <div class="divider"><i></i></div>
+      <p class="lead">Transformational coaching for greater <b>clarity, confidence, alignment,</b> and professional action.</p>
+      <div class="hero-actions">
+        <a class="btn btn-ink" href="connect.html#book">Begin your next chapter <span class="arw">&rarr;</span></a>
+        <a class="btn btn-ghost" href="butterfly-effect.html">See how it works</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><i></i> Scroll &mdash; the cocoon is stirring</div>
+</section>
+
+<section class="pad veil">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Where to begin</span>
+      <h2 class="sec" style="margin-top:.8rem">Four chapters, <span class="mv">one journey.</span></h2>
+      <p>This site follows the same arc our coaching does. Each chapter carries the butterfly a little further &mdash; start anywhere, or move through them in order.</p>
+    </div>
+    <div class="grid-2">
+      <a class="card rv" href="coaching.html">
+        <span class="num">CHAPTER 01</span>
+        <div class="icon i-mauve"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20c0-7 4-11 9-12 0 7-3 11-9 12Z"/><path d="M11 20c0-5-3-8-7-8.5C4 16 6.5 19.5 11 20Z"/><path d="M11 20v2"/></svg></div>
+        <h3>Coaching</h3>
+        <p>The three areas we work in &mdash; spiritual growth, emotional healing, and professional development &mdash; and what a session actually looks like.</p>
+      </a>
+      <a class="card rv" href="butterfly-effect.html">
+        <span class="num">CHAPTER 02</span>
+        <div class="icon i-clay"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg></div>
+        <h3>The Butterfly Effect</h3>
+        <p>Cocoon, Transform, Rise. The methodology behind the work, broken into three movements you can actually follow.</p>
+      </a>
+      <a class="card rv" href="naomi.html">
+        <span class="num">CHAPTER 03</span>
+        <div class="icon i-ink"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="9" r="4.5"/><path d="M4 21c0-4.2 3.6-7 8-7s8 2.8 8 7"/></svg></div>
+        <h3>Meet Naomi</h3>
+        <p>Twenty years of leadership, service, and real life &mdash; and why she built NaRu Empowerment.</p>
+      </a>
+      <a class="card rv" href="connect.html">
+        <span class="num">CHAPTER 04</span>
+        <div class="icon i-mauve"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="m2.5 7.5 9.5 6 9.5-6"/></svg></div>
+        <h3>Connect</h3>
+        <p>Book a discovery call, send a message, or join the community. This is where the shift starts.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="pad veil-open">
+  <div class="wrap">
+    <div class="sec-head rv" style="margin-inline:auto;text-align:center">
+      <span class="eyebrow">Why it works</span>
+      <h2 class="sec" style="margin-top:.8rem">You don't need to <span class="mv">overhaul your life.</span></h2>
+      <p style="margin-inline:auto">A butterfly's wingbeat doesn't move the storm. It starts the chain that does. Coaching works the same way &mdash; we find the one small shift that changes the shape of everything downstream.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quote veil-ink">
+  <div class="wrap rv">
+    <p class="l1">Every transformation begins with a single wingbeat.</p>
+    <p class="l2">You are becoming who you were created to be.</p>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="rv">
+      <h2>Ready for your next chapter?</h2>
+      <p>Start with a conversation about where you are and where you want to go.</p>
+    </div>
+    <div class="rv">
+      <a class="btn btn-light" href="connect.html#book">Schedule a discovery call <span class="arw">&rarr;</span></a>
+      <small>Let's create your transformation plan.</small>
+    </div>
+  </div>
+</section>
+</main>
 
 <footer>
   <div class="foot">
@@ -112,53 +177,6 @@ FOOT = """</main>
   </div>
 </footer>
 
-<script src="{ap}assets/butterfly.js?v={assethash}"></script>
+<script src="../assets/butterfly.js?v=37755a1fa7"></script>
 </body>
 </html>
-"""
-
-CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg>'
-
-def pager(items):
-    out = ['<section class="veil"><div class="wrap"><div class="pager">']
-    for kick, title, blurb, href in items:
-        out.append(
-            '<a class="pagecard rv" href="%s"><span>%s</span><h4>%s</h4>'
-            '<p>%s</p></a>' % (href, kick, title, blurb))
-    out.append('</div></div></section>')
-    return "\n".join(out)
-
-import os
-RIBBON = """  <div class="ribbon">
-    <div class="ribbon-in">
-      <span>Metamorphosis</span>
-      <span class="stage">Larva</span>
-      <span class="track"><span class="fill"></span></span>
-      <span>Scroll to complete</span>
-    </div>
-  </div>
-"""
-
-def page(fname, title, desc, body, live=False, theme="dark", subdir=""):
-    """live=True gives the page the animated wireframe background.
-    theme="light" layers the light override and flips the render mode.
-    subdir puts the output in a folder, adjusting asset paths."""
-    ap = "../" if subdir else ""
-    extra = ('\n<link rel="stylesheet" href="%sassets/light.css?v=%s">' % (ap, ASSET_HASH)
-             if theme == "light" else "")
-    cls = " ".join(filter(None, [
-        "bg-live" if live else "",
-        "theme-light" if theme == "light" else "",
-    ]))
-    html = HEAD.format(
-        title=title, desc=desc, assethash=ASSET_HASH, ap=ap, extracss=extra,
-        bodyclass=(' class="%s"' % cls) if cls else '',
-        canvas='\n<canvas id="bgfx" aria-hidden="true"></canvas>\n' if live else '',
-        ribbon=RIBBON if live else '',
-    ) + body + FOOT.replace('{assethash}', ASSET_HASH).replace('{ap}', ap)
-    out = "../" + (subdir + "/" if subdir else "") + fname
-    import os as _os
-    _os.makedirs(_os.path.dirname(out), exist_ok=True) if subdir else None
-    with open(out, "w") as f:
-        f.write(html)
-    print("%-30s %6d bytes" % (out.replace("../", ""), len(html)))

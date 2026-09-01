@@ -353,7 +353,7 @@ connect = """
 
 <section class="pad veil" id="book">
   <div class="wrap">
-    <div class="split" style="grid-template-columns:1.15fr .85fr">
+    <div class="split split-wide">
       <div class="rv">
         <h2 class="sec">Book a discovery call</h2>
         <p style="color:var(--muted);margin-bottom:2rem">Tell us a little about what's going on. Naomi reads every message personally and will follow up within two business days.</p>
@@ -398,7 +398,7 @@ connect = """
 
 <section class="pad veil-2" id="newsletter">
   <div class="wrap">
-    <div class="split" style="grid-template-columns:1.1fr .9fr;align-items:center">
+    <div class="split split-wide split-mid">
       <div class="rv">
         <span class="eyebrow">Stay connected</span>
         <h2 class="sec" style="margin-top:.8rem">Not ready <em class="it mv">just yet?</em></h2>
@@ -477,3 +477,28 @@ page("naomi.html", "Meet Naomi R. Wiley — NaRu Empowerment",
 page("connect.html", "Connect — NaRu Empowerment Life Coach Group",
      "Book a discovery call, send a message, or join the NaRu community.",
      connect)
+
+# ---------------------------------------------------------------
+# Light edition — same structure and copy, light ground.
+# ---------------------------------------------------------------
+LIGHT = dict(theme="light", subdir="light")
+
+page("index.html", "NaRu Empowerment Life Coach Group — Small Shifts. Big Transformation.",
+     "Transformational coaching for greater clarity, confidence, alignment, and professional action.",
+     home, **LIGHT)
+
+page("coaching.html", "Coaching — NaRu Empowerment Life Coach Group",
+     "Spiritual growth, emotional healing, and professional development coaching with NaRu Empowerment.",
+     coaching, **LIGHT)
+
+page("butterfly-effect.html", "The Butterfly Effect Methodology — NaRu Empowerment",
+     "Cocoon, Transform, Rise — the three movements of the Butterfly Effect Methodology.",
+     method, live=True, **LIGHT)
+
+page("naomi.html", "Meet Naomi R. Wiley — NaRu Empowerment",
+     "Twenty years of leadership, service, and real-life experience behind NaRu Empowerment.",
+     naomi, **LIGHT)
+
+page("connect.html", "Connect — NaRu Empowerment Life Coach Group",
+     "Book a discovery call, send a message, or join the NaRu community.",
+     connect, **LIGHT)

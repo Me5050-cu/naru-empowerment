@@ -22,6 +22,11 @@
 
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* On a light ground additive glow is invisible — it only reads against
+     darkness. The light edition draws the same mesh as inked strokes with
+     normal compositing instead. Same geometry, opposite rendering. */
+  var LIGHT = document.body.classList.contains('theme-light');
+
   var W = 0, H = 0, DPR = 1;
   var target = 0, smooth = 0;
   var t0 = performance.now(), t = 0;
@@ -137,9 +142,9 @@
     g.fillStyle = rg; g.fillRect(0, 0, px, px);
     return c;
   }
-  var SPR_BLOOM_COOL = makeSprite(192, '139,110,155');
+  var SPR_BLOOM_COOL = makeSprite(192, LIGHT ? '139,110,155' : '139,110,155');
   var SPR_BLOOM_WARM = makeSprite(192, '201,123,90');
-  var SPR_NODE       = makeSprite(48,  '237,231,242');
+  var SPR_NODE       = makeSprite(48,  LIGHT ? '94,71,112' : '237,231,242');
 
   /* Resolve every node for a given morph position. */
   var PTS = new Float32Array(NODES.length * 2);
@@ -215,15 +220,18 @@
      Paint
      ========================================================= */
   function rgba(c, a) { return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(3) + ')'; }
-  var C_LILAC = [201, 184, 217], C_GLOW = [237, 231, 242],
-      C_MAUVE = [139, 110, 155], C_CLAY = [201, 123, 90];
+  var C_LILAC = LIGHT ? [122,  94, 140] : [201, 184, 217],
+      C_GLOW  = LIGHT ? [ 60,  44,  74] : [237, 231, 242],
+      C_MAUVE = LIGHT ? [ 94,  71, 112] : [139, 110, 155],
+      C_CLAY  = LIGHT ? [160,  84,  48] : [201, 123,  90];
+  var BLEND = LIGHT ? 'source-over' : 'lighter';
   function mix(a, b, k) {
     return [Math.round(lerp(a[0], b[0], k)), Math.round(lerp(a[1], b[1], k)), Math.round(lerp(a[2], b[2], k))];
   }
 
   function drawMotes(p) {
-    ctx.globalCompositeOperation = 'lighter';
-    var base = 0.06 + 0.10 * p;
+    ctx.globalCompositeOperation = BLEND;
+    var base = (LIGHT ? 0.10 : 0.06) + 0.10 * p;
     /* three alpha buckets, one path each — not one fill per mote */
     for (var b = 0; b < 3; b++) {
       ctx.fillStyle = rgba(C_LILAC, base * (0.35 + b * 0.32));
@@ -247,14 +255,14 @@
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(rot);
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = BLEND;
 
     /* bloom: two baked sprites cross-faded by warmth */
     var R = maxR * 1.9, D = R * 2;
-    ctx.globalAlpha = 0.30 * alpha * (1 - warm);
+    ctx.globalAlpha = (LIGHT ? 0.10 : 0.30) * alpha * (1 - warm);
     ctx.drawImage(SPR_BLOOM_COOL, -R, -R, D, D);
     if (warm > 0.01) {
-      ctx.globalAlpha = 0.30 * alpha * warm;
+      ctx.globalAlpha = (LIGHT ? 0.10 : 0.30) * alpha * warm;
       ctx.drawImage(SPR_BLOOM_WARM, -R, -R, D, D);
     }
     ctx.globalAlpha = 1;
@@ -263,7 +271,9 @@
     if (energy > 0.02) {
       var lg = ctx.createLinearGradient(-maxR * 3.2, 0, maxR * 3.2, 0);
       lg.addColorStop(0, 'rgba(201,184,217,0)');
-      lg.addColorStop(0.5, 'rgba(237,231,242,' + (0.16 * energy * alpha) + ')');
+      lg.addColorStop(0.5, LIGHT
+        ? 'rgba(94,71,112,' + (0.14 * energy * alpha) + ')'
+        : 'rgba(237,231,242,' + (0.16 * energy * alpha) + ')');
       lg.addColorStop(1, 'rgba(201,184,217,0)');
       ctx.fillStyle = lg;
       ctx.fillRect(-maxR * 3.2, -maxR * 0.05, maxR * 6.4, maxR * 0.10);
@@ -271,7 +281,7 @@
 
     /* edges — one path, one stroke */
     ctx.lineWidth = 1;
-    ctx.strokeStyle = rgba(edgeCol, 0.30 * alpha);
+    ctx.strokeStyle = rgba(edgeCol, (LIGHT ? 0.42 : 0.30) * alpha);
     ctx.beginPath();
     for (var e = 0; e < EDGES.length; e++) {
       var i = EDGES[e][0], j = EDGES[e][1];
@@ -281,7 +291,7 @@
     ctx.stroke();
 
     /* brighter outer rim */
-    ctx.strokeStyle = rgba(C_LILAC, 0.42 * alpha);
+    ctx.strokeStyle = rgba(C_LILAC, (LIGHT ? 0.60 : 0.42) * alpha);
     ctx.lineWidth = 1.3;
     ctx.beginPath();
     var n1 = RINGS[0].n;
@@ -293,7 +303,7 @@
     ctx.stroke();
 
     /* nodes: small dots batched into one path, glows blitted */
-    ctx.fillStyle = rgba(C_LILAC, 0.62 * alpha);
+    ctx.fillStyle = rgba(C_LILAC, (LIGHT ? 0.78 : 0.62) * alpha);
     ctx.beginPath();
     for (var n2 = 0; n2 < NODES.length; n2++) {
       var x2 = PTS[n2 * 2], y2 = PTS[n2 * 2 + 1];
@@ -305,7 +315,7 @@
     for (var n3 = 0; n3 < NODES.length; n3 += 6) {
       var x3 = PTS[n3 * 2], y3 = PTS[n3 * 2 + 1];
       var tw = 0.55 + 0.45 * Math.sin(t * 1.8 + n3 * 0.7);
-      ctx.globalAlpha = 0.55 * alpha * tw;
+      ctx.globalAlpha = (LIGHT ? 0.30 : 0.55) * alpha * tw;
       ctx.drawImage(SPR_NODE, x3 - 9, y3 - 9, 18, 18);
     }
     ctx.globalAlpha = 1;
@@ -317,15 +327,15 @@
     if (k <= 0.02) return;
     ctx.save();
     ctx.translate(cx, cy); ctx.rotate(rot);
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.strokeStyle = rgba(C_LILAC, 0.5 * k * alpha);
+    ctx.globalCompositeOperation = BLEND;
+    ctx.strokeStyle = rgba(C_LILAC, (LIGHT ? 0.7 : 0.5) * k * alpha);
     ctx.lineWidth = 1.2; ctx.lineCap = 'round';
     var top = -size * 0.30, len = size * 0.46 * k;
     ctx.beginPath();
     ctx.moveTo(0, top); ctx.quadraticCurveTo(-len * 0.55, top - len * 0.55, -len, top - len * 0.86);
     ctx.moveTo(0, top); ctx.quadraticCurveTo(len * 0.55, top - len * 0.55, len, top - len * 0.86);
     ctx.stroke();
-    ctx.fillStyle = rgba(C_GLOW, 0.7 * k * alpha);
+    ctx.fillStyle = rgba(C_GLOW, (LIGHT ? 0.8 : 0.7) * k * alpha);
     ctx.beginPath(); ctx.arc(-len, top - len * 0.86, 2, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.arc(len, top - len * 0.86, 2, 0, Math.PI * 2); ctx.fill();
     ctx.restore();
