@@ -3,6 +3,16 @@
 Marketing site for NaRu Empowerment — transformational coaching for clarity,
 confidence, alignment, and professional action.
 
+## Two versions
+
+| Version | Path | Direction |
+| --- | --- | --- |
+| Modern | `/` | Dark ink + mauve, four chapters, scroll-driven wireframe metamorphosis |
+| Poster | `/poster/` | Faithful to the printed poster: cream, plum and gold, single page |
+
+Both are deployed from this repo. The poster edition is one self-contained
+file with no shared assets, so the two can diverge freely.
+
 ## Structure
 
 Four chapters plus a home page, all static HTML with no build step required

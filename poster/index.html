@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NaRu Empowerment Life Coach Group — Small Shifts. Big Transformation.</title>
+<meta name="description" content="Transformational coaching for greater clarity, confidence, alignment, and professional action.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   NaRu Empowerment — poster edition
+   A faithful translation of the printed poster: cream ground,
+   plum and gold, Cormorant with Parisienne script accents.
+   Single page, exactly the poster's running order.
+   =========================================================== */
+:root{
+  --plum:#3B2140; --plum-deep:#2C1830; --plum-soft:#5A3A60;
+  --gold:#B08D4F; --gold-light:#C9A96A; --gold-pale:#E4D5B7;
+  --cream:#FAF6F0; --cream-2:#F3ECE1; --cream-3:#EFE2CE;
+  --sage:#7C8560; --sage-deep:#6A7350;
+  --ink:#3A3238; --muted:#6B6067;
+  --rule:rgba(176,141,79,.35);
+  --shadow:0 18px 50px -20px rgba(59,33,64,.35);
+  --maxw:1200px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:'Montserrat',system-ui,-apple-system,sans-serif;
+  font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;letter-spacing:.02em;margin:0}
+.script{font-family:'Parisienne',cursive}
+main [id]{scroll-margin-top:96px}
+
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 2rem;
+  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  border:1px solid transparent;cursor:pointer;transition:.35s cubic-bezier(.2,.7,.3,1)}
+.btn-plum{background:var(--plum);color:#fff}
+.btn-plum:hover{background:var(--plum-deep);transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-ghost{border-color:var(--gold);color:var(--plum)}
+.btn-ghost:hover{background:var(--gold);color:#fff}
+.btn-light{background:#fff;color:var(--plum)}
+.btn-light:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+
+/* nav */
+header{position:sticky;top:0;z-index:60;background:rgba(250,246,240,.94);
+  backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:.3s}
+header.scrolled{border-bottom-color:rgba(176,141,79,.22)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:2rem;
+  padding:14px 28px;max-width:var(--maxw);margin:0 auto}
+.logo{display:flex;align-items:center;gap:.7rem}
+.logo .mark{width:44px;flex:none;color:var(--gold)}
+.logo .name{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--plum);line-height:1}
+.logo .name b{font-weight:500}
+.logo .sub{font-size:.5rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+.navlinks{display:flex;align-items:center;gap:1.9rem}
+.navlinks a:not(.btn){font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:500;color:var(--plum);position:relative;padding:6px 0}
+.navlinks a:not(.btn)::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
+  background:var(--gold);transition:.3s}
+.navlinks a:not(.btn):hover::after{width:100%}
+.navtoggle{display:none;background:none;border:0;padding:8px;cursor:pointer}
+.navtoggle span{display:block;width:24px;height:1.5px;background:var(--plum);margin:5px 0}
+
+/* hero */
+.hero{position:relative;overflow:hidden;
+  background:radial-gradient(120% 90% at 78% 40%,rgba(228,213,183,.55),transparent 60%),
+             linear-gradient(105deg,#FBF8F3 0%,#F6EFE4 46%,var(--cream-3) 100%)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:2rem;
+  max-width:var(--maxw);margin:0 auto;padding:0 28px;min-height:min(86vh,740px)}
+.hero-copy{padding:4.5rem 0;position:relative;z-index:2}
+.hero h1{font-size:clamp(2.5rem,5.1vw,4.4rem);line-height:1.02;color:var(--plum);text-transform:uppercase}
+.hero h1 .gold{color:var(--gold);display:block}
+.hero h1 .script{display:block;font-size:.62em;color:var(--plum-soft);text-transform:none;margin-top:.1em}
+.divider{display:flex;align-items:center;gap:10px;margin:1.7rem 0 1.5rem;max-width:340px}
+.divider::before,.divider::after{content:"";height:1px;background:var(--rule);flex:1}
+.divider i{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);flex:none}
+.hero p.lead{font-size:1rem;max-width:34ch;color:var(--muted);margin:0 0 2rem}
+.hero p.lead b{font-weight:600;color:var(--plum)}
+.hero-photo{position:relative;align-self:stretch;min-height:460px;
+  margin-right:min(0px,calc((var(--maxw) - 100vw)/2 - 28px));
+  background:radial-gradient(80% 70% at 50% 25%,rgba(255,255,255,.3),transparent 70%),
+             linear-gradient(160deg,#6E5A63,var(--plum) 55%,#241528)}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.hero-photo .ph{position:absolute;left:0;right:0;top:50%;text-align:center;color:rgba(255,255,255,.32);
+  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase}
+.hero-photo .tag{position:absolute;right:28px;bottom:34px;text-align:right;color:#fff;z-index:3;
+  text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.hero-photo .tag .script{font-size:2rem;color:var(--gold-pale);display:block;line-height:1}
+.hero-photo .tag .big{font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:.06em;text-transform:uppercase}
+.wing{position:absolute;opacity:.14;pointer-events:none}
+
+/* sections */
+section{position:relative}
+.pad{padding:5.5rem 0}
+h2.sec{font-size:clamp(1.85rem,3.2vw,2.6rem);line-height:1.15;color:var(--plum);text-transform:uppercase}
+h2.sec .gold{color:var(--gold);display:block}
+
+/* pillars */
+.pillars{display:grid;grid-template-columns:1.15fr repeat(3,1fr)}
+.pillars>*{padding:0 2.1rem}
+.pillars .col+.col{border-left:1px solid var(--rule)}
+.pillar{text-align:center}
+.pillar .icon{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;
+  margin:0 auto 1.3rem;transition:.4s}
+.pillar:hover .icon{transform:translateY(-6px) scale(1.05)}
+.i-sage{background:var(--sage)} .i-plum{background:var(--plum)} .i-gold{background:var(--gold)}
+.pillar h3{font-size:1.35rem;text-transform:uppercase;letter-spacing:.05em;line-height:1.15;margin-bottom:.7rem}
+.pillar.p1 h3{color:var(--sage)} .pillar.p2 h3{color:var(--plum)} .pillar.p3 h3{color:var(--gold)}
+.pillar p{font-size:.88rem;color:var(--muted);margin:0}
+
+/* methodology */
+.method{background:linear-gradient(180deg,#F7F0E4,#F1E7D6)}
+.steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:1rem;margin-top:2.8rem}
+.step{display:flex;gap:1.3rem;align-items:center}
+.step .orb{width:112px;height:112px;border-radius:50%;flex:none;position:relative;overflow:hidden;
+  box-shadow:0 10px 30px -12px rgba(59,33,64,.5);border:2px solid rgba(255,255,255,.7);
+  display:grid;place-items:center;transition:.4s}
+.step:hover .orb{transform:translateY(-5px)}
+.step .orb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.o1{background:linear-gradient(150deg,#8E9B6E,#5C6647)}
+.o2{background:linear-gradient(150deg,#C9903F,#8A5E22)}
+.o3{background:linear-gradient(150deg,#9B7BC0,#4C2E68)}
+.step h3{font-size:1.3rem;letter-spacing:.09em;text-transform:uppercase;color:var(--plum);margin-bottom:.3rem}
+.step .beat{font-size:.85rem;color:var(--gold);font-weight:500;margin:0 0 .45rem}
+.step .note{font-size:.84rem;color:var(--muted);margin:0;max-width:24ch}
+.arrow{color:var(--gold);font-size:1.5rem}
+
+/* quote */
+.quote{background:linear-gradient(100deg,var(--plum-deep),var(--plum) 60%,#4A2A50);color:#fff;overflow:hidden}
+.quote .wrap{padding:3.4rem 28px;text-align:center;position:relative;z-index:2}
+.quote .l1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.9vw,2.3rem);margin:0}
+.quote .l2{font-family:'Parisienne',cursive;font-size:clamp(1.3rem,2.4vw,1.9rem);color:var(--gold-pale);margin:.4rem 0 0}
+
+/* naomi */
+.naomi{display:grid;grid-template-columns:.85fr 1.15fr;background:var(--cream-2)}
+.naomi-photo{position:relative;min-height:480px;overflow:hidden;
+  background:linear-gradient(150deg,#8A7A6B,#4A3A40)}
+.naomi-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.naomi-photo .ph{position:absolute;left:0;right:0;top:50%;text-align:center;color:rgba(255,255,255,.32);
+  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase}
+.naomi-body{display:grid;grid-template-columns:1.35fr 1fr;gap:2.6rem;padding:4rem 3rem;align-items:start}
+.naomi-body h2{font-size:clamp(1.7rem,2.8vw,2.4rem);color:var(--plum);letter-spacing:.04em;text-transform:uppercase}
+.naomi-body .role{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+  font-weight:600;margin:.5rem 0 1.4rem}
+.naomi-body p{font-size:.89rem;color:var(--muted)}
+.creds{border-left:1px solid var(--rule);padding-left:2.2rem;display:grid;gap:1.4rem}
+.cred{display:flex;gap:1rem;align-items:center}
+.cred .ring{width:44px;height:44px;border:1px solid var(--gold);border-radius:50%;
+  display:grid;place-items:center;flex:none;color:var(--gold)}
+.cred span{font-size:.84rem;color:var(--plum);font-weight:500;line-height:1.4}
+
+/* cta */
+.cta{background:linear-gradient(100deg,#6E764F,var(--sage) 55%,#8C9470);color:#fff;overflow:hidden}
+.cta .wrap{display:flex;align-items:center;justify-content:space-between;gap:2.5rem;
+  padding:2.8rem 28px;flex-wrap:wrap;position:relative;z-index:2}
+.cta .left{display:flex;align-items:center;gap:1.5rem}
+.cta .circle{width:62px;height:62px;border-radius:50%;background:var(--gold);display:grid;place-items:center;flex:none}
+.cta h2{font-size:clamp(1.5rem,2.6vw,2.1rem);color:#fff;letter-spacing:.03em;text-transform:uppercase}
+.cta p{margin:.3rem 0 0;font-size:.86rem;color:rgba(255,255,255,.87)}
+.cta .right{text-align:center}
+.cta .right small{display:block;margin-top:.9rem;font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;color:rgba(255,255,255,.93)}
+
+/* newsletter */
+.news{display:grid;grid-template-columns:.8fr 1.2fr .9fr;align-items:stretch;background:var(--cream)}
+.news-photo{position:relative;min-height:300px;background:linear-gradient(150deg,#E8DCC6,#C9AE86)}
+.news-photo .ph{position:absolute;left:0;right:0;top:50%;text-align:center;color:rgba(59,33,64,.3);
+  font-size:.62rem;letter-spacing:.22em;text-transform:uppercase}
+.news-form{padding:3.2rem 3rem;border-right:1px solid var(--rule)}
+.news-form h2{font-size:clamp(1.5rem,2.5vw,2rem);color:var(--plum);letter-spacing:.04em;text-transform:uppercase}
+.news-form .script{display:block;font-size:1.45rem;color:var(--gold);margin:.15rem 0 1.5rem}
+.field{width:100%;padding:.85rem 0;border:0;border-bottom:1px solid var(--rule);background:transparent;
+  font-family:inherit;font-size:.88rem;color:var(--ink);margin-bottom:1.1rem;outline:none;transition:.3s}
+.field::placeholder{color:#A9A0A6}
+.field:focus{border-color:var(--gold)}
+.news-form .btn{width:100%;justify-content:center;margin-top:.5rem}
+.news-side{padding:3.2rem 2.6rem;display:flex;gap:1.4rem;align-items:center}
+.news-side .ring{width:64px;height:64px;border:1px solid var(--gold);border-radius:50%;
+  display:grid;place-items:center;flex:none;color:var(--gold)}
+.news-side p{font-size:.87rem;color:var(--muted);margin:0}
+.formnote{font-size:.75rem;color:var(--gold);margin:.9rem 0 0;min-height:1.2em;font-weight:500}
+
+/* footer */
+footer{background:linear-gradient(100deg,var(--plum-deep),var(--plum) 70%);color:rgba(255,255,255,.8);overflow:hidden}
+.foot{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2.5rem;
+  padding:3.4rem 28px 2rem;max-width:var(--maxw);margin:0 auto;position:relative;z-index:2}
+.foot .logo .name{color:#fff}
+.foot h4{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light);
+  margin:0 0 1rem;font-family:'Montserrat',sans-serif;font-weight:600}
+.foot a{font-size:.85rem;color:rgba(255,255,255,.78);display:block;padding:.22rem 0;transition:.25s}
+.foot a:hover{color:var(--gold-light);transform:translateX(3px)}
+.tagline{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(255,255,255,.92);margin:0 0 1rem}
+.tagline b{color:var(--gold-light);font-weight:500;display:block}
+.social{display:flex;gap:.6rem}
+.social a{width:32px;height:32px;border:1px solid rgba(201,169,106,.5);border-radius:50%;
+  display:grid;place-items:center;color:var(--gold-light)}
+.social a:hover{background:var(--gold);color:#fff;transform:none}
+.contact-row{display:flex;gap:.7rem;align-items:center;font-size:.85rem;padding:.22rem 0;color:rgba(255,255,255,.78)}
+.contact-row:hover{color:var(--gold-light)}
+.legal{border-top:1px solid rgba(255,255,255,.14);padding:1rem 28px;max-width:var(--maxw);margin:0 auto;
+  display:flex;justify-content:space-between;gap:1rem;font-size:.72rem;color:rgba(255,255,255,.55);
+  flex-wrap:wrap;position:relative;z-index:2}
+.legal a:hover{color:var(--gold-light)}
+
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:1040px){
+  .pillars{grid-template-columns:1fr 1fr;gap:2.4rem 0}
+  .pillars .col:nth-child(2n+1){border-left:0}
+  .steps{grid-template-columns:1fr;gap:2rem}
+  .arrow{transform:rotate(90deg);justify-self:center}
+  .naomi{grid-template-columns:1fr}
+  .naomi-photo{min-height:340px}
+  .naomi-body{grid-template-columns:1fr;padding:3rem 2rem;gap:2rem}
+  .creds{border-left:0;border-top:1px solid var(--rule);padding:1.8rem 0 0}
+  .news{grid-template-columns:1fr}
+  .news-form{border-right:0;border-bottom:1px solid var(--rule)}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media(max-width:820px){
+  .navlinks{position:fixed;inset:66px 0 auto;background:var(--cream);flex-direction:column;gap:0;
+    padding:1rem 28px 2rem;border-bottom:1px solid var(--rule);transform:translateY(-160%);
+    transition:transform .45s cubic-bezier(.2,.7,.3,1);align-items:flex-start}
+  .navlinks.open{transform:none}
+  .navlinks a:not(.btn){padding:.9rem 0;width:100%;border-bottom:1px solid rgba(176,141,79,.16);font-size:.85rem}
+  .navlinks .btn{margin-top:1rem;width:100%;justify-content:center}
+  .navtoggle{display:block}
+  .hero-grid{grid-template-columns:1fr;min-height:0;gap:0}
+  .hero-copy{padding:3rem 0 2.5rem;text-align:center}
+  .divider{margin-inline:auto}
+  .hero p.lead{margin-inline:auto}
+  .hero-photo{min-height:400px;margin:0 -28px}
+  .pad{padding:3.8rem 0}
+}
+@media(max-width:620px){
+  .pillars{grid-template-columns:1fr}
+  .pillars>*{padding:0}
+  .pillars .col+.col{border-left:0;border-top:1px solid var(--rule);padding-top:2.2rem}
+  .step{flex-direction:column;text-align:center}
+  .step .note{max-width:none}
+  .cta .wrap{flex-direction:column;text-align:center}
+  .cta .left{flex-direction:column}
+  .cta .right{width:100%}
+  .news-form,.news-side{padding:2.6rem 22px}
+  .foot{grid-template-columns:1fr}
+  .legal{justify-content:center;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bfly" viewBox="0 0 120 100">
+    <g fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M60 38C72 16 92 4 104 12c11 8 6 30-10 40-11 7-27 4-34-4Z"/>
+      <path d="M60 52c13 2 30 8 34 20 4 12-8 20-18 16-11-5-16-14-16-24Z"/>
+      <path d="M60 38C48 16 28 4 16 12 5 20 10 42 26 52c11 7 27 4 34-4Z"/>
+      <path d="M60 52c-13 2-30 8-34 20-4 12 8 20 18 16 11-5 16-14 16-24Z"/>
+      <path d="M60 32v46"/><path d="M60 32c-4-8-10-13-16-15M60 32c4-8 10-13 16-15"/>
+    </g>
+  </symbol>
+</svg>
+
+<header id="hdr">
+  <div class="nav">
+    <a class="logo" href="#top" aria-label="NaRu Empowerment home">
+      <svg class="mark" viewBox="0 0 120 100"><use href="#bfly"/></svg>
+      <div><div class="name">Na<b>Ru</b></div><div class="sub">Empowerment</div></div>
+    </a>
+    <nav class="navlinks" id="navlinks">
+      <a href="#about">About NaRu</a>
+      <a href="#coaching">Coaching</a>
+      <a href="#method">The Butterfly Effect</a>
+      <a href="#naomi">Meet Naomi</a>
+      <a href="#resources">Resources</a>
+      <a class="btn btn-plum" href="#schedule">Schedule a Call</a>
+    </nav>
+    <button class="navtoggle" id="navtoggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <svg class="wing" style="left:-7%;top:-12%;width:420px;color:var(--gold)" viewBox="0 0 120 100"><use href="#bfly"/></svg>
+  <div class="hero-grid">
+    <div class="hero-copy rv">
+      <h1>Your Next Chapter<span class="gold">Begins With One</span><span class="script">small shift.</span></h1>
+      <div class="divider"><i></i></div>
+      <p class="lead">Transformational coaching for greater <b>clarity, confidence, alignment,</b> and professional action.</p>
+      <a class="btn btn-plum" href="#schedule">Begin Your Next Chapter</a>
+    </div>
+    <div class="hero-photo rv">
+      <div class="ph">Portrait — add hero.jpg</div>
+      <svg class="wing" style="right:-10%;top:6%;width:340px;color:#fff;opacity:.12" viewBox="0 0 120 100"><use href="#bfly"/></svg>
+      <div class="tag"><span class="script">Small Shifts.</span><span class="big">Big Transformation.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="coaching">
+  <div class="wrap">
+    <div class="pillars">
+      <div class="col rv" style="padding-left:0">
+        <h2 class="sec">What Part of Your Life Is <span class="gold">Ready for Transformation?</span></h2>
+        <div class="divider"><i></i></div>
+        <p style="font-size:.9rem;color:var(--muted)">NaRu Empowerment supports individuals navigating growth, change and their next chapter. Through personalized coaching and proven strategies, we help you create meaningful change from the inside out.</p>
+      </div>
+      <div class="col rv"><div class="pillar p1">
+        <div class="icon i-sage"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20c0-7 4-11 9-12 0 7-3 11-9 12Z"/><path d="M11 20c0-5-3-8-7-8.5C4 16 6.5 19.5 11 20Z"/><path d="M11 20v2"/></svg></div>
+        <h3>Spiritual<br>Growth</h3>
+        <p>Cultivate inner peace, align with your values, and deepen your connection with self and purpose.</p>
+      </div></div>
+      <div class="col rv"><div class="pillar p2">
+        <div class="icon i-plum"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9Z"/><path d="M9.5 11h5l-2.5 4Z"/></svg></div>
+        <h3>Emotional<br>Healing</h3>
+        <p>Release what no longer serves you, build resilience, and create emotional strength that lasts.</p>
+      </div></div>
+      <div class="col rv"><div class="pillar p3">
+        <div class="icon i-gold"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg></div>
+        <h3>Professional<br>Development</h3>
+        <p>Elevate your leadership, build new skills, and step confidently into your next level of impact and influence.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section class="method pad" id="method">
+  <div class="wrap" style="text-align:center">
+    <h2 class="sec rv" style="letter-spacing:.05em">The Butterfly Effect Methodology<sup style="font-size:.38em">&trade;</sup></h2>
+    <p class="script rv" style="font-size:1.35rem;color:var(--gold);margin:.2rem 0 0">Small Shifts. Big Transformation.</p>
+    <div class="steps">
+      <div class="step rv">
+        <div class="orb o1"><svg width="52" height="44" viewBox="0 0 120 100" style="color:#fff;opacity:.9"><use href="#bfly"/></svg></div>
+        <div style="text-align:left">
+          <h3>Cocoon</h3><p class="beat">Ground. Reflect.<br>Create Inner Stillness.</p>
+          <p class="note">You pause to align with your truth.</p>
+        </div>
+      </div>
+      <div class="arrow" aria-hidden="true">&#10230;</div>
+      <div class="step rv">
+        <div class="orb o2"><svg width="52" height="44" viewBox="0 0 120 100" style="color:#fff;opacity:.9"><use href="#bfly"/></svg></div>
+        <div style="text-align:left">
+          <h3>Transform</h3><p class="beat">Release. Heal.<br>Renew Your Mind.</p>
+          <p class="note">You let go of what holds you back.</p>
+        </div>
+      </div>
+      <div class="arrow" aria-hidden="true">&#10230;</div>
+      <div class="step rv">
+        <div class="orb o3"><svg width="52" height="44" viewBox="0 0 120 100" style="color:#fff;opacity:.9"><use href="#bfly"/></svg></div>
+        <div style="text-align:left">
+          <h3>Rise</h3><p class="beat">Align. Take Action.<br>Live On Purpose.</p>
+          <p class="note">You step into your next chapter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  <svg class="wing" style="right:2%;top:-30%;width:260px;color:#fff;opacity:.1" viewBox="0 0 120 100"><use href="#bfly"/></svg>
+  <div class="wrap rv">
+    <p class="l1">Every transformation begins with a single wingbeat.</p>
+    <p class="l2">You are becoming who you were created to be.</p>
+  </div>
+</section>
+
+<section class="naomi" id="naomi">
+  <div class="naomi-photo">
+    <div class="ph">Portrait — add naomi.jpg</div>
+    <svg class="wing" style="left:12%;top:20%;width:220px;color:#fff;opacity:.12" viewBox="0 0 120 100"><use href="#bfly"/></svg>
+  </div>
+  <div class="naomi-body">
+    <div class="rv" id="about">
+      <h2>Meet Naomi R. Wiley</h2>
+      <p class="role">CEO &amp; Founder</p>
+      <p>With over 20 years of leadership, service, and real-life experience, Naomi empowers individuals to break through limitations and create lives of clarity, confidence, and purpose.</p>
+      <p>Her mission is simple: to inspire growth while empowering change and help you transform your life&mdash;one day &amp; one step at a time.</p>
+      <a class="btn btn-ghost" href="#schedule" style="margin-top:.8rem">Learn More About Naomi</a>
+    </div>
+    <div class="creds rv">
+      <div class="cred"><div class="ring"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="9" r="5"/><path d="M9 13.5 8 22l4-2.2L16 22l-1-8.5"/></svg></div><span>U.S. Army Veteran</span></div>
+      <div class="cred"><div class="ring"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.2"/></svg></div><span>Certified Life Coach</span></div>
+      <div class="cred"><div class="ring"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="9" cy="9" r="3.2"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 7.2a3 3 0 0 1 0 5.6M17.5 14.4c2 .7 3.5 2.3 3.5 4.6"/></svg></div><span>Leadership &amp; HR Expert</span></div>
+      <div class="cred"><div class="ring"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9Z"/></svg></div><span>Wife, Mother, &amp; Purpose-Driven Leader</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="schedule">
+  <svg class="wing" style="right:6%;top:-40%;width:280px;color:#fff;opacity:.14" viewBox="0 0 120 100"><use href="#bfly"/></svg>
+  <div class="wrap">
+    <div class="left rv">
+      <div class="circle"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3.5v3M16 3.5v3"/></svg></div>
+      <div>
+        <h2>Ready For Your Next Chapter?</h2>
+        <p>Start with a conversation about where you are and where you want to go.</p>
+      </div>
+    </div>
+    <div class="right rv">
+      <a class="btn btn-light" href="#resources">Schedule a Discovery Call &nbsp;&rsaquo;</a>
+      <small>Let's create your transformation plan.</small>
+    </div>
+  </div>
+</section>
+
+<section class="news" id="resources">
+  <div class="news-photo"><div class="ph">Still life — add journal.jpg</div></div>
+  <div class="news-form rv">
+    <h2>Not Ready Just Yet?</h2>
+    <span class="script">Stay connected with the NaRu community.</span>
+    <form id="joinform" novalidate>
+      <input class="field" type="text" name="first" placeholder="First Name" autocomplete="given-name" required>
+      <input class="field" type="email" name="email" placeholder="Email Address" autocomplete="email" required>
+      <button class="btn btn-gold" type="submit">Join the Community</button>
+      <p class="formnote" id="formnote" role="status"></p>
+    </form>
+  </div>
+  <div class="news-side rv">
+    <div class="ring"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m2.5 7 9.5 6.5L21.5 7"/></svg></div>
+    <p>Get inspiration, practical tools, exclusive resources, and updates to support your journey.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <svg class="wing" style="right:3%;top:10%;width:300px;color:var(--gold-light);opacity:.12" viewBox="0 0 120 100"><use href="#bfly"/></svg>
+  <div class="foot">
+    <div>
+      <div class="logo" style="margin-bottom:1rem">
+        <svg class="mark" viewBox="0 0 120 100" style="color:var(--gold-light)"><use href="#bfly"/></svg>
+        <div><div class="name" style="color:#fff">Na<b>Ru</b></div><div class="sub">Empowerment</div></div>
+      </div>
+    </div>
+    <div>
+      <p class="tagline">Inspiring Growth while <b>Empowering Change.</b></p>
+      <div class="social">
+        <a href="#" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V7c0-.8.4-1 1-1h1.5V3H14c-2.2 0-3.5 1.4-3.5 3.6V8.5H8.5V12h2V21H14v-9h2.3l.4-3.5H14Z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 9h3v11h-3zM6 4a1.8 1.8 0 1 0 0 3.6A1.8 1.8 0 0 0 6 4Zm4 5h2.9v1.5c.5-.9 1.7-1.8 3.3-1.8 3 0 3.8 1.8 3.8 4.4V20h-3v-6c0-1.5-.6-2.4-1.9-2.4-1.2 0-2.1.9-2.1 2.4v6h-3Z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.7-1.8C18.3 5 12 5 12 5s-6.3 0-7.9.5A2.5 2.5 0 0 0 2.4 7.3C2 8.8 2 12 2 12s0 3.2.4 4.7c.2.9.9 1.6 1.7 1.8C5.7 19 12 19 12 19s6.3 0 7.9-.5a2.5 2.5 0 0 0 1.7-1.8C22 15.2 22 12 22 12ZM10 15V9l5.2 3Z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="#about">About Naru</a><a href="#coaching">Coaching Services</a>
+      <a href="#method">The Butterfly Effect</a><a href="#resources">Resources</a><a href="#schedule">Contact</a>
+    </div>
+    <div>
+      <h4>Let's Connect</h4>
+      <a class="contact-row" href="tel:+16785809648"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.4"><path d="M5 4h3l1.5 4-2 1.5a12 12 0 0 0 6 6L15 13.5 19 15v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4 6.2 2 2 0 0 1 5 4Z"/></svg> (678) 580-9648</a>
+      <a class="contact-row" href="mailto:info@narucoaching.com"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.4"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m2.5 7 9.5 6.5L21.5 7"/></svg> info@narucoaching.com</a>
+      <a class="contact-row" href="#top"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg> www.narucoaching.com</a>
+    </div>
+  </div>
+  <div class="legal">
+    <span>&copy; 2026 NaRu Empowerment Life Coach Group. All Rights Reserved.</span>
+    <span><a href="#" style="display:inline">Privacy Policy</a> &nbsp;|&nbsp; <a href="#" style="display:inline">Terms of Service</a></span>
+  </div>
+</footer>
+
+<script>
+var hdr=document.getElementById('hdr');
+addEventListener('scroll',function(){hdr.classList.toggle('scrolled',scrollY>8)},{passive:true});
+var tgl=document.getElementById('navtoggle'),links=document.getElementById('navlinks');
+tgl.addEventListener('click',function(){tgl.setAttribute('aria-expanded',links.classList.toggle('open'))});
+links.addEventListener('click',function(e){if(e.target.closest('a'))links.classList.remove('open')});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},
+  {threshold:.1,rootMargin:'0px 0px -50px'});
+document.querySelectorAll('.rv').forEach(function(el,i){el.style.transitionDelay=(i%3*90)+'ms';io.observe(el)});
+var form=document.getElementById('joinform'),note=document.getElementById('formnote');
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var d=new FormData(form);
+  if(!d.get('first').trim()||!/^\S+@\S+\.\S+$/.test(d.get('email'))){
+    note.textContent='Please add your first name and a valid email.';return;}
+  note.textContent='Welcome to the NaRu community — check your inbox.';
+  form.reset();
+});
+</script>
+</body>
+</html>
