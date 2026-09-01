@@ -9,6 +9,9 @@ confidence, alignment, and professional action.
 | --- | --- | --- |
 | Modern | `/` | Dark ink + mauve, four chapters, scroll-driven wireframe metamorphosis |
 | Poster | `/poster/` | Faithful to the printed poster: cream, plum and gold, single page |
+| Light modern | `/light/` | Modern structure on a light ground — in progress |
+
+A live side-by-side comparison of every version sits at `/versions/`.
 
 Both are deployed from this repo. The poster edition is one self-contained
 file with no shared assets, so the two can diverge freely.

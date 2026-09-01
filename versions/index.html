@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NaRu — Version Comparison</title>
+<meta name="description" content="Side-by-side preview of every NaRu Empowerment site direction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#101014; --panel:#17171D; --line:rgba(255,255,255,.10);
+  --text:#E9E7EE; --text-2:rgba(233,231,238,.60); --text-3:rgba(233,231,238,.38);
+  --accent:#9B86AE;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:400;letter-spacing:-.025em;margin:0}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1400px;margin:0 auto;padding:0 28px}
+
+header{padding:3.4rem 0 2.2rem;border-bottom:1px solid var(--line)}
+header .eyebrow{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);font-weight:600}
+header h1{font-size:clamp(2rem,4vw,3rem);margin:.7rem 0 .6rem}
+header p{color:var(--text-2);max-width:62ch;margin:0;font-size:.98rem}
+
+.controls{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;padding:1.6rem 0 0}
+.controls span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-3);font-weight:600;margin-right:.4rem}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:100px;overflow:hidden}
+.seg button{background:transparent;border:0;color:var(--text-2);font:inherit;font-size:.82rem;
+  padding:.5rem 1.1rem;cursor:pointer;transition:.25s}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#14101A;font-weight:600}
+.seg button:hover:not([aria-pressed="true"]){color:var(--text)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:1.6rem;padding:2.4rem 0 4rem}
+.card{border:1px solid var(--line);border-radius:18px;background:var(--panel);
+  overflow:hidden;display:flex;flex-direction:column}
+.card.pending{opacity:.62}
+.meta{padding:1.4rem 1.5rem;border-bottom:1px solid var(--line)}
+.meta .row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+.meta h2{font-size:1.4rem}
+.tag{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  padding:.25rem .6rem;border-radius:100px;border:1px solid var(--line);color:var(--text-3);white-space:nowrap}
+.tag.live{color:#8FD3A8;border-color:rgba(143,211,168,.35)}
+.tag.soon{color:#D9A87A;border-color:rgba(217,168,122,.35)}
+.meta p{color:var(--text-2);font-size:.88rem;margin:.5rem 0 0}
+.sw{display:flex;gap:.35rem;margin-top:.9rem}
+.sw i{width:20px;height:20px;border-radius:5px;display:block;border:1px solid rgba(255,255,255,.14)}
+
+.stage{position:relative;background:#0B0B0E;overflow:hidden;height:440px}
+.stage iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0;background:#0B0B0E}
+.stage .placeholder{position:absolute;inset:0;display:grid;place-items:center;
+  color:var(--text-3);font-size:.82rem;text-align:center;padding:2rem}
+.foot{padding:1.1rem 1.5rem;display:flex;gap:.6rem;align-items:center;justify-content:space-between}
+.open{font-size:.78rem;font-weight:600;padding:.55rem 1.1rem;border-radius:100px;
+  background:var(--text);color:#14101A;transition:.25s}
+.open:hover{background:#fff;transform:translateY(-1px)}
+.open.disabled{background:transparent;border:1px solid var(--line);color:var(--text-3);pointer-events:none}
+.path{font-size:.75rem;color:var(--text-3);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+footer{border-top:1px solid var(--line);padding:1.6rem 0 3rem;color:var(--text-3);font-size:.8rem}
+@media(max-width:620px){ .wrap{padding:0 20px} .stage{height:360px} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow">NaRu Empowerment</span>
+    <h1>Three directions, side by side</h1>
+    <p>Live previews of every version of the site. Each frame is the real page — scroll inside it, or open it full-size. Use the toggle to compare desktop and phone layouts.</p>
+    <div class="controls">
+      <span>Preview width</span>
+      <div class="seg" role="group" aria-label="Preview width">
+        <button id="wDesk" aria-pressed="true">Desktop</button>
+        <button id="wPhone" aria-pressed="false">Phone</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid" id="grid">
+
+    <div class="card" data-src="../index.html">
+      <div class="meta">
+        <div class="row"><h2>Modern</h2><span class="tag live">Live</span></div>
+        <p>Dark ink and mauve. Four chapter pages, with the scroll-driven wireframe metamorphosis on the Butterfly Effect page.</p>
+        <div class="sw"><i style="background:#16141A"></i><i style="background:#8B6E9B"></i><i style="background:#C9B8D9"></i><i style="background:#C97B5A"></i></div>
+      </div>
+      <div class="stage"><iframe loading="lazy" title="Modern version"></iframe></div>
+      <div class="foot"><span class="path">/</span><a class="open" href="../index.html" target="_blank" rel="noopener">Open →</a></div>
+    </div>
+
+    <div class="card" data-src="../poster/index.html">
+      <div class="meta">
+        <div class="row"><h2>Poster</h2><span class="tag live">Live</span></div>
+        <p>Faithful to the printed poster. Cream, plum and gold, Cormorant with script accents, single page in the poster's exact running order.</p>
+        <div class="sw"><i style="background:#FAF6F0"></i><i style="background:#3B2140"></i><i style="background:#B08D4F"></i><i style="background:#7C8560"></i></div>
+      </div>
+      <div class="stage"><iframe loading="lazy" title="Poster version"></iframe></div>
+      <div class="foot"><span class="path">/poster/</span><a class="open" href="../poster/index.html" target="_blank" rel="noopener">Open →</a></div>
+    </div>
+
+    <div class="card pending" data-src="../light/index.html" data-pending="1">
+      <div class="meta">
+        <div class="row"><h2>Light modern</h2><span class="tag soon">In progress</span></div>
+        <p>The modern structure and typography on a light ground — airy rather than cinematic. Being built in its own thread.</p>
+        <div class="sw"><i style="background:#F7F5F3"></i><i style="background:#16141A"></i><i style="background:#8B6E9B"></i><i style="background:#C97B5A"></i></div>
+      </div>
+      <div class="stage"><div class="placeholder">Not published yet.<br>This frame fills in automatically once <code>/light/</code> goes live.</div></div>
+      <div class="foot"><span class="path">/light/</span><span class="open disabled">Pending</span></div>
+    </div>
+
+  </div>
+</div>
+
+<footer><div class="wrap">Every frame loads the live page. Refresh to pick up the latest deploy.</div></footer>
+
+<script>
+(function () {
+  'use strict';
+  var DESK = 1440, PHONE = 390;
+  var width = DESK;
+
+  function paint() {
+    document.querySelectorAll('.card').forEach(function (card) {
+      var stage = card.querySelector('.stage');
+      var frame = card.querySelector('iframe');
+      if (!frame) return;
+      var scale = stage.clientWidth / width;
+      frame.style.width = width + 'px';
+      frame.style.height = (stage.clientHeight / scale) + 'px';
+      frame.style.transform = 'scale(' + scale + ')';
+      if (!frame.src) frame.src = card.getAttribute('data-src');
+    });
+  }
+
+  function setWidth(w, deskOn) {
+    width = w;
+    document.getElementById('wDesk').setAttribute('aria-pressed', String(deskOn));
+    document.getElementById('wPhone').setAttribute('aria-pressed', String(!deskOn));
+    paint();
+  }
+  document.getElementById('wDesk').addEventListener('click', function () { setWidth(DESK, true); });
+  document.getElementById('wPhone').addEventListener('click', function () { setWidth(PHONE, false); });
+  addEventListener('resize', paint, { passive: true });
+  paint();
+
+  /* the pending variant lights up on its own once it deploys */
+  var pending = document.querySelector('.card[data-pending]');
+  if (pending) {
+    fetch(pending.getAttribute('data-src'), { method: 'HEAD' })
+      .then(function (r) {
+        if (!r.ok) return;
+        pending.classList.remove('pending');
+        pending.querySelector('.tag').className = 'tag live';
+        pending.querySelector('.tag').textContent = 'Live';
+        pending.querySelector('.stage').innerHTML =
+          '<iframe loading="lazy" title="Light modern version"></iframe>';
+        var open = pending.querySelector('.open');
+        open.className = 'open';
+        open.textContent = 'Open →';
+        open.setAttribute('href', pending.getAttribute('data-src'));
+        open.setAttribute('target', '_blank');
+        paint();
+      })
+      .catch(function () { /* not deployed yet — leave the placeholder */ });
+  }
+})();
+</script>
+</body>
+</html>
