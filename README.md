@@ -7,11 +7,11 @@ confidence, alignment, and professional action.
 
 | Version | Path | Direction |
 | --- | --- | --- |
-| Modern | `/` | Dark ink + mauve, four chapters, scroll-driven wireframe metamorphosis |
-| Poster | `/poster/` | Faithful to the printed poster: cream, plum and gold, single page |
-| Light modern | `/light/` | Modern structure on a light ground — in progress |
+| Evening | `/` | Dark ink + mauve, four chapters, scroll-driven wireframe metamorphosis |
+| Heirloom | `/poster/` | Faithful to the printed poster: cream, plum and gold, single page |
+| Daylight | `/light/` | Same structure on a light ground |
 
-A live side-by-side comparison of every version sits at `/versions/`.
+`/versions/` is the client-facing presentation of all three — this is the link to send.
 
 Both are deployed from this repo. The poster edition is one self-contained
 file with no shared assets, so the two can diverge freely.
