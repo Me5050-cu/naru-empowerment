@@ -347,6 +347,14 @@
   function frame(now) {
     if (!running) return;
 
+    /* Honour reduced motion: draw the mesh once at the current scroll
+       position and stop, rather than running an idle animation. */
+    if (reduce) {
+      smooth = target;
+      paintOnce();
+      return;
+    }
+
     /* Only the Butterfly Effect page animates. On the multi-page site
        the other pages carry no canvas at all; in a single-file build
        they share one, so honour the body flag either way. */
@@ -419,6 +427,27 @@
     requestAnimationFrame(frame);
   }
 
+  /* A single static frame for reduced-motion visitors, repainted only
+     when they scroll or resize. */
+  function paintOnce() {
+    if (!document.body.classList.contains('bg-live')) return;
+    var p = smooth;
+    var stageF = clamp(p / 0.85 * 3, 0, 3);
+    var done = seg(stageF, 2.45, 3);
+    var warm = Math.sin(clamp((p - 0.20) / 0.55, 0, 1) * Math.PI) * 0.85;
+    var base = Math.min(W, H);
+    var size = base * (0.16 + 0.10 * done) * (narrow() ? 0.92 : 1);
+    var vis = narrow() ? 0.85 : 1;
+    var pos = pathAt(p);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'source-over';
+    solve(stageF, size, 1);
+    ribbon();
+    drawMesh(pos.x, pos.y, 0, warm, 0, vis);
+    drawAntennae(pos.x, pos.y, 0, size, done, vis);
+  }
+
   /* ---------- stage ribbon ---------- */
   var fill = document.querySelector('.ribbon .fill');
   var label = document.querySelector('.ribbon .stage');
@@ -437,8 +466,11 @@
     }
   }
 
-  addEventListener('resize', resize, { passive: true });
-  addEventListener('scroll', readScroll, { passive: true });   // no DOM writes here
+  addEventListener('resize', function () { resize(); if (reduce) paintOnce(); }, { passive: true });
+  addEventListener('scroll', function () {
+    readScroll();
+    if (reduce) { smooth = target; paintOnce(); }
+  }, { passive: true });   // no DOM writes here in the animated path
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) running = false;
     else if (!running) { running = true; t0 = performance.now() - t * 1000; requestAnimationFrame(frame); }
@@ -476,6 +508,16 @@
   Array.prototype.forEach.call(document.querySelectorAll('.navlinks a[href]'), function (a) {
     if (a.getAttribute('href') === here) a.classList.add('current');
   });
+
+  /* The reveal animation hides content until it scrolls into view. If the
+     observer never fires — an old browser, a script error above, a page
+     shorter than the trigger — that content would stay invisible forever.
+     Reveal everything after 2.5s regardless. */
+  setTimeout(function () {
+    Array.prototype.forEach.call(document.querySelectorAll('.rv'), function (el) {
+      el.classList.add('in');
+    });
+  }, 2500);
 
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) {

@@ -131,3 +131,8 @@ footer{background:#1B1721;color:rgba(244,241,246,.72);border-top:0}
 @media(max-width:900px){
   header,header.scrolled{background:#F7F5F3}
 }
+
+/* focus ring needs weight on a light ground */
+a:focus-visible,button:focus-visible,input:focus-visible,
+select:focus-visible,textarea:focus-visible,summary:focus-visible{outline-color:var(--mauve-deep)}
+.skip{background:var(--text);color:#F7F5F3}

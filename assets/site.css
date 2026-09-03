@@ -297,6 +297,19 @@ footer{background:#100E14;color:var(--text-2);border-top:1px solid var(--line)}
 .legal a:hover{color:var(--lilac)}
 
 /* reveal */
+/* Keyboard focus: visible on every interactive element, in both themes.
+   :focus-visible keeps it off mouse clicks. */
+a:focus-visible,button:focus-visible,input:focus-visible,
+select:focus-visible,textarea:focus-visible,summary:focus-visible{
+  outline:2px solid var(--lilac);outline-offset:3px;border-radius:4px}
+.btn:focus-visible{outline-offset:4px}
+
+/* Skip link: first tab stop, hidden until focused */
+.skip{position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--text);color:var(--bg);padding:.8rem 1.4rem;border-radius:0 0 10px 0;
+  font-size:.85rem;font-weight:600}
+.skip:focus{left:0}
+
 .rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.3,1)}
 .rv.in{opacity:1;transform:none}
 
@@ -347,7 +360,7 @@ footer{background:#100E14;color:var(--text-2);border-top:1px solid var(--line)}
   .ribbon-in{padding:10px 22px;font-size:.62rem;gap:.8rem}
 }
 @media(prefers-reduced-motion:reduce){
-  .rv{opacity:1;transform:none;transition:none}
+  .rv{opacity:1!important;transform:none!important;transition:none}
   html{scroll-behavior:auto}
   .scroll-hint i{animation:none}
 }

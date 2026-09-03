@@ -14,6 +14,10 @@ def _asset_hash():
 
 ASSET_HASH = _asset_hash()
 
+BASE_URL = "https://me5050-cu.github.io/naru-empowerment/"
+DARK_ICON  = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20120%20100%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%2523CFBEDE%27%20stroke-width%3D%277%27%20stroke-linejoin%3D%27round%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M60%2038C72%2016%2092%204%20104%2012c11%208%206%2030-10%2040-11%207-27%204-34-4Z%27%2F%3E%3Cpath%20d%3D%27M60%2052c13%202%2030%208%2034%2020%204%2012-8%2020-18%2016-11-5-16-14-16-24Z%27%2F%3E%3Cpath%20d%3D%27M60%2038C48%2016%2028%204%2016%2012%205%2020%2010%2042%2026%2052c11%207%2027%204%2034-4Z%27%2F%3E%3Cpath%20d%3D%27M60%2052c-13%202-30%208-34%2020-4%2012%208%2020%2018%2016%2011-5%2016-14%2016-24Z%27%2F%3E%3Cpath%20d%3D%27M60%2032v46%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+LIGHT_ICON = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20120%20100%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%25235E4770%27%20stroke-width%3D%277%27%20stroke-linejoin%3D%27round%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M60%2038C72%2016%2092%204%20104%2012c11%208%206%2030-10%2040-11%207-27%204-34-4Z%27%2F%3E%3Cpath%20d%3D%27M60%2052c13%202%2030%208%2034%2020%204%2012-8%2020-18%2016-11-5-16-14-16-24Z%27%2F%3E%3Cpath%20d%3D%27M60%2038C48%2016%2028%204%2016%2012%205%2020%2010%2042%2026%2052c11%207%2027%204%2034-4Z%27%2F%3E%3Cpath%20d%3D%27M60%2052c-13%202-30%208-34%2020-4%2012%208%2020%2018%2016%2011-5%2016-14%2016-24Z%27%2F%3E%3Cpath%20d%3D%27M60%2032v46%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+
 HEAD = """<!doctype html>
 <html lang="en">
 <head>
@@ -21,10 +25,22 @@ HEAD = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+<link rel="canonical" href="{canon}">
+<meta name="theme-color" content="{themecolor}">
+<link rel="icon" href="{favicon}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NaRu Empowerment Life Coach Group">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{canon}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{ap}assets/site.css?v={assethash}">{extracss}
+<noscript><style>.rv{{opacity:1!important;transform:none!important}}</style></noscript>
 </head>
 <body{bodyclass}>
 {canvas}
@@ -41,6 +57,8 @@ HEAD = """<!doctype html>
     </g>
   </symbol>
 </svg>
+
+<a class="skip" href="#main">Skip to content</a>
 
 <header id="hdr">
   <div class="nav">
@@ -62,7 +80,7 @@ HEAD = """<!doctype html>
   </div>
 {ribbon}</header>
 
-<main>
+<main id="main">
 """
 
 FOOT = """</main>
@@ -152,6 +170,9 @@ def page(fname, title, desc, body, live=False, theme="dark", subdir=""):
     ]))
     html = HEAD.format(
         title=title, desc=desc, assethash=ASSET_HASH, ap=ap, extracss=extra,
+        canon=BASE_URL + (subdir + "/" if subdir else "") + (fname if fname != "index.html" else ""),
+        themecolor="#F7F5F3" if theme == "light" else "#131017",
+        favicon=LIGHT_ICON if theme == "light" else DARK_ICON,
         bodyclass=(' class="%s"' % cls) if cls else '',
         canvas='\n<canvas id="bgfx" aria-hidden="true"></canvas>\n' if live else '',
         ribbon=RIBBON if live else '',
